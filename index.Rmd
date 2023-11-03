@@ -24,4 +24,111 @@ In addition, to avoid confounding variables regarding other aspects of cases, I 
 Link to dataset: https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/ZNCKL5
 
 
+##Data Visulatization
+
+I am going to make a scatter plot that shoes the win rate of different agencies.
+
+```{r}
+library(ggplot2)
+library(tidyverse)
+```
+
+```{r}
+deference_data <- read_csv("data/ProjectDeferenceData.csv")
+##RESET DATA
+```
+
+```{r}
+deference_data <- deference_data |>
+  mutate(
+    case_winner = if_else(Decision == 0, "gov_agency", "not_agency")
+  ) |>
+  select(Term, Name, Decision, Agency, case_winner)
+##CLEANUP DATA
+```
+
+```{r}
+deference_data <- deference_data |>
+  mutate(
+    agency_name = case_when(
+      Agency == 0 ~ "Treasury",
+      Agency == 1 ~ "Copyright Office",
+      Agency == 2 ~ "Defense",
+      Agency == 3 ~ "Justice",
+      Agency == 4 ~ "Education",
+      Agency == 5 ~ "EEOC",
+      Agency == 6 ~ "Energy",
+      Agency == 7 ~ "EPA",
+      Agency == 8 ~ "Deposit Insurance",
+      Agency == 9 ~ "Federal Reserve",
+      Agency == 10 ~ "FERC",
+      Agency == 11 ~ "FSLIC",
+      Agency == 12 ~ "FLRA",
+      Agency == 13 ~ "FTC",
+      Agency == 14 ~ "FCC",
+      Agency == 15 ~ "Health",
+      Agency == 16 ~ "ICC",
+      Agency == 17 ~ "ICE or DHS",
+      Agency == 18 ~ "Interior",
+      Agency == 19 ~ "IRS",
+      Agency == 20 ~ "Labor",
+      Agency == 21 ~ "NLRB",
+      Agency == 22 ~ "OPM",
+      Agency == 23 ~ "PTO",
+      Agency == 24 ~ "Pension Guarantees",
+      Agency == 25 ~ "Post Office",
+      Agency == 26 ~ "President",
+      Agency == 27 ~ "SEC",
+      Agency == 28 ~ "Sentencing",
+      Agency == 29 ~ "Transportaion",
+      Agency == 30 ~ "Panama Canal",
+      Agency == 31 ~ "State",
+      Agency == 32 ~ "FEC",
+      Agency == 33 ~ "NRC",
+      Agency == 34 ~ "FDA",
+      Agency == 35 ~ "CIA",
+      Agency == 36 ~ "CFTC",
+      Agency == 37 ~ "Ag",
+      Agency == 38 ~ "Commerce",
+      Agency == 39 ~ "HUD",
+      Agency == 40 ~ "VA",
+      Agency == 41 ~ "Customs",
+      Agency == 42 ~ "FAA",
+      Agency == 43 ~ "Railroads",
+      Agency == 44 ~ "Judicial Conference",
+      Agency == 45 ~ "Mediation",
+      Agency == 46 ~ "Comptroller",
+      Agency == 47 ~ "SSA",
+      Agency == 48 ~ "CFPB",
+      Agency == 49 ~ "TVA",
+      Agency == 50 ~ "NASA",
+      Agency == 51 ~ "NSA",
+      Agency == 52 ~ "USAID"
+    )
+  ) |>
+  select(Term, Name, Decision, agency_name, case_winner)
+##NAME AGENCIES
+```
+
+
+```{r}
+deference_data |>
+  group_by(agency_name) |>
+  mutate(
+    wins = sum(case_winner == "gov_agency"),
+    n = n(),
+    prop_win = wins/n
+  ) |>
+  ggplot(mapping = aes(x = agency_name, y = prop_win)) +
+  geom_point() +
+  theme(axis.text.x = element_text(angle = 90, hjust=0.95)) +
+  labs(
+    x = "Executive Agency",
+    y = "Proportion of Statuatry Interp Cases Won"
+  )
+  
+```
+
+
+
 
