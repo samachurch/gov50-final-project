@@ -124,7 +124,7 @@ deference_data |>
   theme(axis.text.x = element_text(angle = 90, hjust=0.95)) +
   labs(
     x = "Executive Agency",
-    y = "Proportion of Statuatry Interp Cases Won"
+    y = "Prop. of Statuatry Interp Cases Won"
   )
   
 ```
