@@ -26,7 +26,7 @@ Link to dataset: https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10
 
 ## Data Visulatization
 
-I am going to make a scatter plot that shoes the win rate of different agencies.
+I am going to make a scatter plot that shoes the win rate of different agencies in cases involving stauatory interpretation.
 
 ```{r}
 library(ggplot2)

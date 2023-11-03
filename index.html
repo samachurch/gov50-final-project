@@ -1524,8 +1524,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <p>The variable for agency is coded 0-52, with each representing a different executive agency bringing the case to the Court. The variable called favors_agency can be considered in determining win rate. It is coded as a 0 if the decision favors agency, 1 if it does not, and 2 if it was mixed. To minimize confounding factors, I will only consider a 0 as a win for an agency.</p>
 <p>In addition, to avoid confounding variables regarding other aspects of cases, I will only investigate cases where the court determined Chevron Deference (one of the deference doctrines) should apply. Thus, the only cases I will evaluate are ones where Chevron Step 0 (does the Chevron framework apply) is coded as a 1 to indicate yes.</p>
 <p>Link to dataset: <a href="https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/ZNCKL5" class="uri">https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/ZNCKL5</a></p>
-<p>##Data Visulatization</p>
-<p>I am going to make a scatter plot that shoes the win rate of different agencies.</p>
+<h2 id="data-visulatization">Data Visulatization</h2>
+<p>I am going to make a scatter plot that shoes the win rate of different agencies in cases involving stauatory interpretation.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://ggplot2.tidyverse.org'>ggplot2</a></span><span class='op'>)</span></span>
