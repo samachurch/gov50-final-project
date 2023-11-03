@@ -115,7 +115,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["index_files/anchor-4.2.2/anchor.min.js","index_files/bowser-1.9.3/bowser.min.js","index_files/distill-2.2.21/template.v2.js","index_files/header-attrs-2.17/header-attrs.js","index_files/header-attrs-2.24/header-attrs.js","index_files/jquery-3.6.0/jquery-3.6.0.js","index_files/jquery-3.6.0/jquery-3.6.0.min.js","index_files/jquery-3.6.0/jquery-3.6.0.min.map","index_files/popper-2.6.0/popper.min.js","index_files/tippy-6.2.7/tippy-bundle.umd.min.js","index_files/tippy-6.2.7/tippy-light-border.css","index_files/tippy-6.2.7/tippy.css","index_files/tippy-6.2.7/tippy.umd.min.js","index_files/webcomponents-2.0.0/webcomponents.js"]}
+  {"type":"character","attributes":{},"value":["data/ProjectDeferenceData.csv","index_files/anchor-4.2.2/anchor.min.js","index_files/bowser-1.9.3/bowser.min.js","index_files/distill-2.2.21/template.v2.js","index_files/figure-html5/unnamed-chunk-5-1.png","index_files/header-attrs-2.17/header-attrs.js","index_files/header-attrs-2.24/header-attrs.js","index_files/jquery-3.6.0/jquery-3.6.0.js","index_files/jquery-3.6.0/jquery-3.6.0.min.js","index_files/jquery-3.6.0/jquery-3.6.0.min.map","index_files/popper-2.6.0/popper.min.js","index_files/tippy-6.2.7/tippy-bundle.umd.min.js","index_files/tippy-6.2.7/tippy-light-border.css","index_files/tippy-6.2.7/tippy.css","index_files/tippy-6.2.7/tippy.umd.min.js","index_files/webcomponents-2.0.0/webcomponents.js"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
   <!--/radix_placeholder_navigation_in_header-->
@@ -1524,6 +1524,113 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <p>The variable for agency is coded 0-52, with each representing a different executive agency bringing the case to the Court. The variable called favors_agency can be considered in determining win rate. It is coded as a 0 if the decision favors agency, 1 if it does not, and 2 if it was mixed. To minimize confounding factors, I will only consider a 0 as a win for an agency.</p>
 <p>In addition, to avoid confounding variables regarding other aspects of cases, I will only investigate cases where the court determined Chevron Deference (one of the deference doctrines) should apply. Thus, the only cases I will evaluate are ones where Chevron Step 0 (does the Chevron framework apply) is coded as a 1 to indicate yes.</p>
 <p>Link to dataset: <a href="https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/ZNCKL5" class="uri">https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/ZNCKL5</a></p>
+<p>##Data Visulatization</p>
+<p>I am going to make a scatter plot that shoes the win rate of different agencies.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://ggplot2.tidyverse.org'>ggplot2</a></span><span class='op'>)</span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span></span></code></pre>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>deference_data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='st'>"data/ProjectDeferenceData.csv"</span><span class='op'>)</span></span>
+<span><span class='co'>##RESET DATA</span></span></code></pre>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>deference_data</span> <span class='op'>&lt;-</span> <span class='va'>deference_data</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span></span>
+<span>    case_winner <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/if_else.html'>if_else</a></span><span class='op'>(</span><span class='va'>Decision</span> <span class='op'>==</span> <span class='fl'>0</span>, <span class='st'>"gov_agency"</span>, <span class='st'>"not_agency"</span><span class='op'>)</span></span>
+<span>  <span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>Term</span>, <span class='va'>Name</span>, <span class='va'>Decision</span>, <span class='va'>Agency</span>, <span class='va'>case_winner</span><span class='op'>)</span></span>
+<span><span class='co'>##CLEANUP DATA</span></span></code></pre>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>deference_data</span> <span class='op'>&lt;-</span> <span class='va'>deference_data</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span></span>
+<span>    agency_name <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_when.html'>case_when</a></span><span class='op'>(</span></span>
+<span>      <span class='va'>Agency</span> <span class='op'>==</span> <span class='fl'>0</span> <span class='op'>~</span> <span class='st'>"Treasury"</span>,</span>
+<span>      <span class='va'>Agency</span> <span class='op'>==</span> <span class='fl'>1</span> <span class='op'>~</span> <span class='st'>"Copyright Office"</span>,</span>
+<span>      <span class='va'>Agency</span> <span class='op'>==</span> <span class='fl'>2</span> <span class='op'>~</span> <span class='st'>"Defense"</span>,</span>
+<span>      <span class='va'>Agency</span> <span class='op'>==</span> <span class='fl'>3</span> <span class='op'>~</span> <span class='st'>"Justice"</span>,</span>
+<span>      <span class='va'>Agency</span> <span class='op'>==</span> <span class='fl'>4</span> <span class='op'>~</span> <span class='st'>"Education"</span>,</span>
+<span>      <span class='va'>Agency</span> <span class='op'>==</span> <span class='fl'>5</span> <span class='op'>~</span> <span class='st'>"EEOC"</span>,</span>
+<span>      <span class='va'>Agency</span> <span class='op'>==</span> <span class='fl'>6</span> <span class='op'>~</span> <span class='st'>"Energy"</span>,</span>
+<span>      <span class='va'>Agency</span> <span class='op'>==</span> <span class='fl'>7</span> <span class='op'>~</span> <span class='st'>"EPA"</span>,</span>
+<span>      <span class='va'>Agency</span> <span class='op'>==</span> <span class='fl'>8</span> <span class='op'>~</span> <span class='st'>"Deposit Insurance"</span>,</span>
+<span>      <span class='va'>Agency</span> <span class='op'>==</span> <span class='fl'>9</span> <span class='op'>~</span> <span class='st'>"Federal Reserve"</span>,</span>
+<span>      <span class='va'>Agency</span> <span class='op'>==</span> <span class='fl'>10</span> <span class='op'>~</span> <span class='st'>"FERC"</span>,</span>
+<span>      <span class='va'>Agency</span> <span class='op'>==</span> <span class='fl'>11</span> <span class='op'>~</span> <span class='st'>"FSLIC"</span>,</span>
+<span>      <span class='va'>Agency</span> <span class='op'>==</span> <span class='fl'>12</span> <span class='op'>~</span> <span class='st'>"FLRA"</span>,</span>
+<span>      <span class='va'>Agency</span> <span class='op'>==</span> <span class='fl'>13</span> <span class='op'>~</span> <span class='st'>"FTC"</span>,</span>
+<span>      <span class='va'>Agency</span> <span class='op'>==</span> <span class='fl'>14</span> <span class='op'>~</span> <span class='st'>"FCC"</span>,</span>
+<span>      <span class='va'>Agency</span> <span class='op'>==</span> <span class='fl'>15</span> <span class='op'>~</span> <span class='st'>"Health"</span>,</span>
+<span>      <span class='va'>Agency</span> <span class='op'>==</span> <span class='fl'>16</span> <span class='op'>~</span> <span class='st'>"ICC"</span>,</span>
+<span>      <span class='va'>Agency</span> <span class='op'>==</span> <span class='fl'>17</span> <span class='op'>~</span> <span class='st'>"ICE or DHS"</span>,</span>
+<span>      <span class='va'>Agency</span> <span class='op'>==</span> <span class='fl'>18</span> <span class='op'>~</span> <span class='st'>"Interior"</span>,</span>
+<span>      <span class='va'>Agency</span> <span class='op'>==</span> <span class='fl'>19</span> <span class='op'>~</span> <span class='st'>"IRS"</span>,</span>
+<span>      <span class='va'>Agency</span> <span class='op'>==</span> <span class='fl'>20</span> <span class='op'>~</span> <span class='st'>"Labor"</span>,</span>
+<span>      <span class='va'>Agency</span> <span class='op'>==</span> <span class='fl'>21</span> <span class='op'>~</span> <span class='st'>"NLRB"</span>,</span>
+<span>      <span class='va'>Agency</span> <span class='op'>==</span> <span class='fl'>22</span> <span class='op'>~</span> <span class='st'>"OPM"</span>,</span>
+<span>      <span class='va'>Agency</span> <span class='op'>==</span> <span class='fl'>23</span> <span class='op'>~</span> <span class='st'>"PTO"</span>,</span>
+<span>      <span class='va'>Agency</span> <span class='op'>==</span> <span class='fl'>24</span> <span class='op'>~</span> <span class='st'>"Pension Guarantees"</span>,</span>
+<span>      <span class='va'>Agency</span> <span class='op'>==</span> <span class='fl'>25</span> <span class='op'>~</span> <span class='st'>"Post Office"</span>,</span>
+<span>      <span class='va'>Agency</span> <span class='op'>==</span> <span class='fl'>26</span> <span class='op'>~</span> <span class='st'>"President"</span>,</span>
+<span>      <span class='va'>Agency</span> <span class='op'>==</span> <span class='fl'>27</span> <span class='op'>~</span> <span class='st'>"SEC"</span>,</span>
+<span>      <span class='va'>Agency</span> <span class='op'>==</span> <span class='fl'>28</span> <span class='op'>~</span> <span class='st'>"Sentencing"</span>,</span>
+<span>      <span class='va'>Agency</span> <span class='op'>==</span> <span class='fl'>29</span> <span class='op'>~</span> <span class='st'>"Transportaion"</span>,</span>
+<span>      <span class='va'>Agency</span> <span class='op'>==</span> <span class='fl'>30</span> <span class='op'>~</span> <span class='st'>"Panama Canal"</span>,</span>
+<span>      <span class='va'>Agency</span> <span class='op'>==</span> <span class='fl'>31</span> <span class='op'>~</span> <span class='st'>"State"</span>,</span>
+<span>      <span class='va'>Agency</span> <span class='op'>==</span> <span class='fl'>32</span> <span class='op'>~</span> <span class='st'>"FEC"</span>,</span>
+<span>      <span class='va'>Agency</span> <span class='op'>==</span> <span class='fl'>33</span> <span class='op'>~</span> <span class='st'>"NRC"</span>,</span>
+<span>      <span class='va'>Agency</span> <span class='op'>==</span> <span class='fl'>34</span> <span class='op'>~</span> <span class='st'>"FDA"</span>,</span>
+<span>      <span class='va'>Agency</span> <span class='op'>==</span> <span class='fl'>35</span> <span class='op'>~</span> <span class='st'>"CIA"</span>,</span>
+<span>      <span class='va'>Agency</span> <span class='op'>==</span> <span class='fl'>36</span> <span class='op'>~</span> <span class='st'>"CFTC"</span>,</span>
+<span>      <span class='va'>Agency</span> <span class='op'>==</span> <span class='fl'>37</span> <span class='op'>~</span> <span class='st'>"Ag"</span>,</span>
+<span>      <span class='va'>Agency</span> <span class='op'>==</span> <span class='fl'>38</span> <span class='op'>~</span> <span class='st'>"Commerce"</span>,</span>
+<span>      <span class='va'>Agency</span> <span class='op'>==</span> <span class='fl'>39</span> <span class='op'>~</span> <span class='st'>"HUD"</span>,</span>
+<span>      <span class='va'>Agency</span> <span class='op'>==</span> <span class='fl'>40</span> <span class='op'>~</span> <span class='st'>"VA"</span>,</span>
+<span>      <span class='va'>Agency</span> <span class='op'>==</span> <span class='fl'>41</span> <span class='op'>~</span> <span class='st'>"Customs"</span>,</span>
+<span>      <span class='va'>Agency</span> <span class='op'>==</span> <span class='fl'>42</span> <span class='op'>~</span> <span class='st'>"FAA"</span>,</span>
+<span>      <span class='va'>Agency</span> <span class='op'>==</span> <span class='fl'>43</span> <span class='op'>~</span> <span class='st'>"Railroads"</span>,</span>
+<span>      <span class='va'>Agency</span> <span class='op'>==</span> <span class='fl'>44</span> <span class='op'>~</span> <span class='st'>"Judicial Conference"</span>,</span>
+<span>      <span class='va'>Agency</span> <span class='op'>==</span> <span class='fl'>45</span> <span class='op'>~</span> <span class='st'>"Mediation"</span>,</span>
+<span>      <span class='va'>Agency</span> <span class='op'>==</span> <span class='fl'>46</span> <span class='op'>~</span> <span class='st'>"Comptroller"</span>,</span>
+<span>      <span class='va'>Agency</span> <span class='op'>==</span> <span class='fl'>47</span> <span class='op'>~</span> <span class='st'>"SSA"</span>,</span>
+<span>      <span class='va'>Agency</span> <span class='op'>==</span> <span class='fl'>48</span> <span class='op'>~</span> <span class='st'>"CFPB"</span>,</span>
+<span>      <span class='va'>Agency</span> <span class='op'>==</span> <span class='fl'>49</span> <span class='op'>~</span> <span class='st'>"TVA"</span>,</span>
+<span>      <span class='va'>Agency</span> <span class='op'>==</span> <span class='fl'>50</span> <span class='op'>~</span> <span class='st'>"NASA"</span>,</span>
+<span>      <span class='va'>Agency</span> <span class='op'>==</span> <span class='fl'>51</span> <span class='op'>~</span> <span class='st'>"NSA"</span>,</span>
+<span>      <span class='va'>Agency</span> <span class='op'>==</span> <span class='fl'>52</span> <span class='op'>~</span> <span class='st'>"USAID"</span></span>
+<span>    <span class='op'>)</span></span>
+<span>  <span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>Term</span>, <span class='va'>Name</span>, <span class='va'>Decision</span>, <span class='va'>agency_name</span>, <span class='va'>case_winner</span><span class='op'>)</span></span>
+<span><span class='co'>##NAME AGENCIES</span></span></code></pre>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>deference_data</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>agency_name</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span></span>
+<span>    wins <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>case_winner</span> <span class='op'>==</span> <span class='st'>"gov_agency"</span><span class='op'>)</span>,</span>
+<span>    n <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/context.html'>n</a></span><span class='op'>(</span><span class='op'>)</span>,</span>
+<span>    prop_win <span class='op'>=</span> <span class='va'>wins</span><span class='op'>/</span><span class='va'>n</span></span>
+<span>  <span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>mapping <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>agency_name</span>, y <span class='op'>=</span> <span class='va'>prop_win</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme</a></span><span class='op'>(</span>axis.text.x <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_text</a></span><span class='op'>(</span>angle <span class='op'>=</span> <span class='fl'>90</span>, hjust<span class='op'>=</span><span class='fl'>0.95</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span></span>
+<span>    x <span class='op'>=</span> <span class='st'>"Executive Agency"</span>,</span>
+<span>    y <span class='op'>=</span> <span class='st'>"Proportion of Statuatry Interp Cases Won"</span></span>
+<span>  <span class='op'>)</span></span></code></pre>
+</div>
+<p><img src="index_files/figure-html5/unnamed-chunk-5-1.png" width="624" /></p>
+</div>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->

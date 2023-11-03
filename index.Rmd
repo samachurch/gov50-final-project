@@ -24,7 +24,7 @@ In addition, to avoid confounding variables regarding other aspects of cases, I 
 Link to dataset: https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/ZNCKL5
 
 
-##Data Visulatization
+## Data Visulatization
 
 I am going to make a scatter plot that shoes the win rate of different agencies.
 
