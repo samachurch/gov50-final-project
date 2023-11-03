@@ -26,7 +26,7 @@ Link to dataset: https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10
 
 ## Data Visulatization
 
-I am going to make a scatter plot that shoes the win rate of different agencies in cases involving stauatory interpretation.
+I am going to make a scatter plot that shoes the win rate of different agencies in cases where Chevron is cited compared to the ideological slant of the court in order to determine which party has a stronger correlation with agency wins.
 
 ```{r}
 library(ggplot2)
@@ -35,100 +35,73 @@ library(tidyverse)
 
 ```{r}
 deference_data <- read_csv("data/ProjectDeferenceData.csv")
+
+court_data <- read_csv("data/court.csv")
 ##RESET DATA
 ```
 
 ```{r}
 deference_data <- deference_data |>
   mutate(
-    case_winner = if_else(Decision == 0, "gov_agency", "not_agency")
+    case_winner = if_else(Decision == 0, "gov_agency", "not_agency"),
+    term = Term
   ) |>
-  select(Term, Name, Decision, Agency, case_winner)
+  select(term, Term, Name, Decision, Agency, ChevronCited, case_winner)
+
+
+court_data <- court_data |>
+  filter(term >= 1983 & term <= 2019) |>
+  mutate(
+    term = as.double(term)
+  ) |>
+  select(term, med)
+
+deference_data
+
 ##CLEANUP DATA
 ```
 
+let's combine deference data and court data:
 ```{r}
 deference_data <- deference_data |>
-  mutate(
-    agency_name = case_when(
-      Agency == 0 ~ "Treasury",
-      Agency == 1 ~ "Copyright Office",
-      Agency == 2 ~ "Defense",
-      Agency == 3 ~ "Justice",
-      Agency == 4 ~ "Education",
-      Agency == 5 ~ "EEOC",
-      Agency == 6 ~ "Energy",
-      Agency == 7 ~ "EPA",
-      Agency == 8 ~ "Deposit Insurance",
-      Agency == 9 ~ "Federal Reserve",
-      Agency == 10 ~ "FERC",
-      Agency == 11 ~ "FSLIC",
-      Agency == 12 ~ "FLRA",
-      Agency == 13 ~ "FTC",
-      Agency == 14 ~ "FCC",
-      Agency == 15 ~ "Health",
-      Agency == 16 ~ "ICC",
-      Agency == 17 ~ "ICE or DHS",
-      Agency == 18 ~ "Interior",
-      Agency == 19 ~ "IRS",
-      Agency == 20 ~ "Labor",
-      Agency == 21 ~ "NLRB",
-      Agency == 22 ~ "OPM",
-      Agency == 23 ~ "PTO",
-      Agency == 24 ~ "Pension Guarantees",
-      Agency == 25 ~ "Post Office",
-      Agency == 26 ~ "President",
-      Agency == 27 ~ "SEC",
-      Agency == 28 ~ "Sentencing",
-      Agency == 29 ~ "Transportaion",
-      Agency == 30 ~ "Panama Canal",
-      Agency == 31 ~ "State",
-      Agency == 32 ~ "FEC",
-      Agency == 33 ~ "NRC",
-      Agency == 34 ~ "FDA",
-      Agency == 35 ~ "CIA",
-      Agency == 36 ~ "CFTC",
-      Agency == 37 ~ "Ag",
-      Agency == 38 ~ "Commerce",
-      Agency == 39 ~ "HUD",
-      Agency == 40 ~ "VA",
-      Agency == 41 ~ "Customs",
-      Agency == 42 ~ "FAA",
-      Agency == 43 ~ "Railroads",
-      Agency == 44 ~ "Judicial Conference",
-      Agency == 45 ~ "Mediation",
-      Agency == 46 ~ "Comptroller",
-      Agency == 47 ~ "SSA",
-      Agency == 48 ~ "CFPB",
-      Agency == 49 ~ "TVA",
-      Agency == 50 ~ "NASA",
-      Agency == 51 ~ "NSA",
-      Agency == 52 ~ "USAID"
-    )
-  ) |>
-  select(Term, Name, Decision, agency_name, case_winner)
-##NAME AGENCIES
+  left_join(court_data)
+
+deference_data
 ```
 
+
+This will be a graph that shows the win rate of agencies in cases that cited Chevron overtime compared to the court's ideological slant over time. Let's create that variable.
 
 ```{r}
-deference_data |>
-  group_by(agency_name) |>
+case_data <- deference_data |>
+  filter(ChevronCited == 1) |>
+  group_by(term) |>
   mutate(
-    wins = sum(case_winner == "gov_agency"),
-    n = n(),
-    prop_win = wins/n
-  ) |>
-  ggplot(mapping = aes(x = agency_name, y = prop_win)) +
-  geom_point() +
-  theme(axis.text.x = element_text(angle = 90, hjust= 0.95)) +
-  labs(
-    x = "Executive Agency",
-    y = "Prop. of Statuatry Interp Cases Won"
-    
+    prop_agency_win = (sum(case_winner == "gov_agency")) / n()
   )
+##calculates win rate
   
+case_data
 ```
+
+
+Now let's create the chart:
+```{r}
+case_data |>
+  ggplot(mapping = aes(x = term)) +
+  geom_smooth(aes(y = prop_agency_win, color = "Win Rate of Agencies in Chevron Cases"), se = FALSE) +
+  geom_smooth(aes(y = `med`, color = "Ideological Slant of SCOTUS"), se = FALSE) +
+  scale_colour_manual(name ="Legend", values = c("Win Rate of Agencies in Chevron Cases" = "steelblue", "Ideological Slant of SCOTUS" = "indianred")) +
+labs(
+  title = "Ideological Slant of SCOTUS and Agency Win Rate in Cases Citing Chevron Over Time",
+  x = "Year",
+  y = ""
+)
+
+```
+
+
+Higher numbers on the y-axis indicate a more conservative supreme court and a higher agency win-rate in Chevron cases.
 
 
 
