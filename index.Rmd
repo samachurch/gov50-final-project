@@ -92,6 +92,7 @@ case_data |>
   geom_smooth(aes(y = prop_agency_win, color = "Win Rate of Agencies in Chevron Cases"), se = FALSE) +
   geom_smooth(aes(y = `med`, color = "Ideological Slant of SCOTUS"), se = FALSE) +
   scale_colour_manual(name ="Legend", values = c("Win Rate of Agencies in Chevron Cases" = "steelblue", "Ideological Slant of SCOTUS" = "indianred")) +
+  scale_x_continuous(breaks=seq(1983,2019,by=5)) +
 labs(
   title = "Ideological Slant of SCOTUS and Agency Win Rate in Cases Citing Chevron Over Time",
   x = "Year",
