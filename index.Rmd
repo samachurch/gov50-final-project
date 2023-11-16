@@ -15,15 +15,15 @@ I am interested in doing my final project on an issue related to the federal cou
 
 ## MILESTONE 2: Project Proposal
 
-Does the ideological slant of the Supreme Court influence the win rate of agencies in cases citing the Chevron Deference doctrine? In this report, I will attempt to determine whether a democratic or republican leaning supreme court applies and upholds deference more often. I hypothesize that agency win rate will remain relatively consistent regardless of the ideological slant of the Supreme Court. This is because the doctrine of deference is apolitical, and thus should be consistently applied regardless of the overall slant of the court.Thus, when examining data about whether or not the Supreme Court sides with an executive agency in a decision, I expect the agency win rate to remain relatively consistent. The explanatory variable of interest my project will focus on is the median justice by ideological slant. This is a good measure of the overall slant of the Supreme Court, because it indicates that there are 4 justices more conservative than them, and 4 justices more liberal than them, isolating an overall value for the ideological slant of the court.
+Does the ideological slant of the Supreme Court influence the win rate of agencies in cases citing the Chevron Deference doctrine? In this report, I will attempt to determine whether a democratic or republican leaning supreme court applies and upholds deference more often. I hypothesize that agency win rate will remain relatively consistent regardless of the ideological slant of the Supreme Court. This is because the doctrine of deference is apolitical, and thus should be consistently applied regardless of the overall slant of the court.Thus, when examining data about whether or not the Supreme Court sides with an executive agency in a decision, I expect the agency win rate to remain relatively consistent. The explanatory variable of interest my project will focus on is the median justice by ideological slant. This is a good measure of the overall slant of the Supreme Court, because it indicates that there are 4 justices more conservative than them, and 4 justices more liberal than them, isolating an overall value for the ideological slant of the court. The outcome variable will be the win rate of agencies in cases that cite Chevron Deference throughout different terms. Thus, the database I will be utilizing is a list of Supreme Court cases from 1984 to 2019 where an agency attempts to interpret a law (statutory interpretation). In combination with this, I will be using a dataset that measures the ideological slant of the median Supreme Court justice for the same time period mentioned above. If there is a relationship between partisan slant of the Supreme Court and agency win rate in Chevron Cases my hypothesis will have been found to NOT have statistical support. If there is no relationship found, my hypothesis will have been statistically supported.
 
-Does the Supreme Court defer more to certain executive agencies over others when questions of statutory interpretations arise? In this report, I will attempt to determine whether the Supreme Court favors certain executive agencies when applying the doctrine of Executive Deference. I hypothesize that the supreme court applies deference relatively equally among executive agencies, as the doctrine of deference does not discriminate between the roles of distinct agencies. Thus, when examining data about whether or not the Supreme Court sides with an executive agency in a decision, I expect each agency to have a similar win rate in cases revolving around deference. The explanatory variable of interest my project will focus on is the agency bringing a case invoking the deference doctrine before the Supreme Court. The outcome variable would be the win rates of those different agencies when those cases are brought before the court. Thus, the database I will be utilizing is a list of Supreme Court cases from 1984 to 2019 where an agency attempts to interpret a law (statutory interpretation). If the the difference in win rates between different agencies is not statistically significant, my hypothesis would have been found to have statistical support. If there are statistically significant differences in win rates of agencies, there would appear to be favoritism on the Supreme Court, and my hypothesis would be disproved.
-
-The variable for agency is coded 0-52, with each representing a different executive agency bringing the case to the Court. The variable called favors_agency can be considered in determining win rate. It is coded as a 0 if the decision favors agency, 1 if it does not, and 2 if it was mixed. To minimize confounding factors, I will only consider a 0 as a win for an agency. 
+The variable called favors_agency can be considered in determining win rate. It is coded as a 0 if the decision favors agency, 1 if it does not, and 2 if it was mixed. To minimize confounding factors, I will only consider a 0 as a win for an agency. 
 
 In addition, to avoid confounding variables regarding other aspects of cases, I will only investigate cases where the court determined Chevron Deference (one of the deference doctrines) should apply. Thus, the only cases I will evaluate are ones where Chevron Step 0 (does the Chevron framework apply) is coded as a 1 to indicate yes.
 
-Link to dataset: https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/ZNCKL5
+Link to dataset about Chevron: https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/ZNCKL5
+
+Link to dataset about ideology of Supreme Court: https://mqscores.lsa.umich.edu/measures.php
 
 
 ## MILESTONE 3: Data Visulatization
@@ -80,7 +80,8 @@ case_data <- deference_data |>
   group_by(term) |>
   mutate(
     prop_agency_win = (sum(case_winner == "gov_agency")) / n()
-  )
+  ) |>
+  drop_na()
 ##calculates win rate
   
 case_data
@@ -91,8 +92,8 @@ Now let's create the chart:
 ```{r}
 case_data |>
   ggplot(mapping = aes(x = term)) +
-  geom_smooth(aes(y = prop_agency_win, color = "Win Rate of Agencies in Chevron Cases"), se = FALSE) +
-  geom_smooth(aes(y = `med`, color = "Ideological Slant of SCOTUS"), se = FALSE) +
+  geom_line(aes(y = prop_agency_win, color = "Win Rate of Agencies in Chevron Cases"), se = FALSE) +
+  geom_line(aes(y = case_data$med, color = "Ideological Slant of SCOTUS"), se = FALSE) +
   scale_colour_manual(name ="Legend", values = c("Win Rate of Agencies in Chevron Cases" = "steelblue", "Ideological Slant of SCOTUS" = "indianred")) +
   scale_x_continuous(breaks=seq(1983,2019,by=5)) +
 labs(
