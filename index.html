@@ -115,7 +115,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["data/court.csv","data/ProjectDeferenceData.csv","index_files/anchor-4.2.2/anchor.min.js","index_files/bowser-1.9.3/bowser.min.js","index_files/distill-2.2.21/template.v2.js","index_files/figure-html5/unnamed-chunk-5-1.png","index_files/figure-html5/unnamed-chunk-6-1.png","index_files/header-attrs-2.17/header-attrs.js","index_files/header-attrs-2.24/header-attrs.js","index_files/jquery-3.6.0/jquery-3.6.0.js","index_files/jquery-3.6.0/jquery-3.6.0.min.js","index_files/jquery-3.6.0/jquery-3.6.0.min.map","index_files/popper-2.6.0/popper.min.js","index_files/tippy-6.2.7/tippy-bundle.umd.min.js","index_files/tippy-6.2.7/tippy-light-border.css","index_files/tippy-6.2.7/tippy.css","index_files/tippy-6.2.7/tippy.umd.min.js","index_files/webcomponents-2.0.0/webcomponents.js"]}
+  {"type":"character","attributes":{},"value":["data/court.csv","data/ProjectDeferenceData.csv","index_files/anchor-4.2.2/anchor.min.js","index_files/bowser-1.9.3/bowser.min.js","index_files/distill-2.2.21/template.v2.js","index_files/figure-html5/unnamed-chunk-5-1.png","index_files/figure-html5/unnamed-chunk-6-1.png","index_files/figure-html5/unnamed-chunk-8-1.png","index_files/header-attrs-2.17/header-attrs.js","index_files/header-attrs-2.24/header-attrs.js","index_files/jquery-3.6.0/jquery-3.6.0.js","index_files/jquery-3.6.0/jquery-3.6.0.min.js","index_files/jquery-3.6.0/jquery-3.6.0.min.map","index_files/popper-2.6.0/popper.min.js","index_files/tippy-6.2.7/tippy-bundle.umd.min.js","index_files/tippy-6.2.7/tippy-light-border.css","index_files/tippy-6.2.7/tippy.css","index_files/tippy-6.2.7/tippy.umd.min.js","index_files/webcomponents-2.0.0/webcomponents.js"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
   <!--/radix_placeholder_navigation_in_header-->
@@ -1517,14 +1517,14 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </div>
 
 <div class="d-article">
-<h2 id="project-thoughts">Project thoughts</h2>
+<h2 id="milestone-1-project-thoughts">MILESTONE 1: Project thoughts</h2>
 <p>I am interested in doing my final project on an issue related to the federal court system. For example, I’d be interested in exploring how Chevron Deference has been declining as the justification in recent court decisions.</p>
-<h2 id="project-proposal">Project Proposal</h2>
+<h2 id="milestone-2-project-proposal">MILESTONE 2: Project Proposal</h2>
 <p>Does the Supreme Court defer more to certain executive agencies over others when questions of statutory interpretations arise? In this report, I will attempt to determine whether the Supreme Court favors certain executive agencies when applying the doctrine of Executive Deference. I hypothesize that the supreme court applies deference relatively equally among executive agencies, as the doctrine of deference does not discriminate between the roles of distinct agencies. Thus, when examining data about whether or not the Supreme Court sides with an executive agency in a decision, I expect each agency to have a similar win rate in cases revolving around deference. The explanatory variable of interest my project will focus on is the agency bringing a case invoking the deference doctrine before the Supreme Court. The outcome variable would be the win rates of those different agencies when those cases are brought before the court. Thus, the database I will be utilizing is a list of Supreme Court cases from 1984 to 2019 where an agency attempts to interpret a law (statutory interpretation). If the the difference in win rates between different agencies is not statistically significant, my hypothesis would have been found to have statistical support. If there are statistically significant differences in win rates of agencies, there would appear to be favoritism on the Supreme Court, and my hypothesis would be disproved.</p>
 <p>The variable for agency is coded 0-52, with each representing a different executive agency bringing the case to the Court. The variable called favors_agency can be considered in determining win rate. It is coded as a 0 if the decision favors agency, 1 if it does not, and 2 if it was mixed. To minimize confounding factors, I will only consider a 0 as a win for an agency.</p>
 <p>In addition, to avoid confounding variables regarding other aspects of cases, I will only investigate cases where the court determined Chevron Deference (one of the deference doctrines) should apply. Thus, the only cases I will evaluate are ones where Chevron Step 0 (does the Chevron framework apply) is coded as a 1 to indicate yes.</p>
 <p>Link to dataset: <a href="https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/ZNCKL5" class="uri">https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/ZNCKL5</a></p>
-<h2 id="data-visulatization">Data Visulatization</h2>
+<h2 id="milestone-3-data-visulatization">MILESTONE 3: Data Visulatization</h2>
 <p>I am going to make a scatter plot that shoes the win rate of different agencies in cases where Chevron is cited compared to the ideological slant of the court in order to determine which party has a stronger correlation with agency wins.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
@@ -1638,6 +1638,7 @@ Now let’s create the chart:
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_smooth.html'>geom_smooth</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>y <span class='op'>=</span> <span class='va'>prop_agency_win</span>, color <span class='op'>=</span> <span class='st'>"Win Rate of Agencies in Chevron Cases"</span><span class='op'>)</span>, se <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>+</span></span>
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_smooth.html'>geom_smooth</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>y <span class='op'>=</span> <span class='va'>`med`</span>, color <span class='op'>=</span> <span class='st'>"Ideological Slant of SCOTUS"</span><span class='op'>)</span>, se <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>+</span></span>
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_manual.html'>scale_colour_manual</a></span><span class='op'>(</span>name <span class='op'>=</span><span class='st'>"Legend"</span>, values <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Win Rate of Agencies in Chevron Cases"</span> <span class='op'>=</span> <span class='st'>"steelblue"</span>, <span class='st'>"Ideological Slant of SCOTUS"</span> <span class='op'>=</span> <span class='st'>"indianred"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>scale_x_continuous</a></span><span class='op'>(</span>breaks<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>1983</span>,<span class='fl'>2019</span>,by<span class='op'>=</span><span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
 <span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span></span>
 <span>  title <span class='op'>=</span> <span class='st'>"Ideological Slant of SCOTUS and Agency Win Rate in Cases Citing Chevron Over Time"</span>,</span>
 <span>  x <span class='op'>=</span> <span class='st'>"Year"</span>,</span>
@@ -1647,7 +1648,277 @@ Now let’s create the chart:
 <p><img src="index_files/figure-html5/unnamed-chunk-6-1.png" width="624" /></p>
 </div>
 <p>Higher numbers on the y-axis indicate a more conservative supreme court and a higher agency win-rate in Chevron cases.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<h2 id="milestone-4-analysis">MILESTONE 4: Analysis</h2>
+<p>Let’s create a table that demonstrates the relationship between the median slant of the Supreme Court and the percentage of Chevron cases an agency wins.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>chevron_data</span> <span class='op'>&lt;-</span> <span class='va'>deference_data</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>term</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarize</a></span><span class='op'>(</span></span>
+<span>    median_slant <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>med</span><span class='op'>)</span>,</span>
+<span>    agency_prop_win <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>case_winner</span> <span class='op'>==</span> <span class='st'>"gov_agency"</span><span class='op'>)</span></span>
+<span>  <span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>chevron_data</span> <span class='op'>&lt;-</span> <span class='va'>chevron_data</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/drop_na.html'>drop_na</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>chevron_data</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/kable.html'>kable</a></span><span class='op'>(</span>col.names <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Term"</span>, <span class='st'>"Ideological Slant of Median Justice"</span>, <span class='st'>"Proportion of Agency Wins in Chevron Cases"</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
+</div>
+<table>
+<colgroup>
+<col style="width: 5%" />
+<col style="width: 42%" />
+<col style="width: 51%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">Term</th>
+<th style="text-align: right;">Ideological Slant of Median Justice</th>
+<th style="text-align: right;">Proportion of Agency Wins in Chevron Cases</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1983</td>
+<td style="text-align: right;">0.877</td>
+<td style="text-align: right;">0.7647059</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1984</td>
+<td style="text-align: right;">0.828</td>
+<td style="text-align: right;">0.8181818</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1985</td>
+<td style="text-align: right;">0.932</td>
+<td style="text-align: right;">0.6607143</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1986</td>
+<td style="text-align: right;">0.878</td>
+<td style="text-align: right;">0.7017544</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1987</td>
+<td style="text-align: right;">0.972</td>
+<td style="text-align: right;">0.5263158</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1988</td>
+<td style="text-align: right;">1.098</td>
+<td style="text-align: right;">0.7142857</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1989</td>
+<td style="text-align: right;">0.876</td>
+<td style="text-align: right;">0.6382979</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1990</td>
+<td style="text-align: right;">0.919</td>
+<td style="text-align: right;">0.7058824</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1991</td>
+<td style="text-align: right;">0.756</td>
+<td style="text-align: right;">0.7608696</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1992</td>
+<td style="text-align: right;">0.838</td>
+<td style="text-align: right;">0.7868852</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1993</td>
+<td style="text-align: right;">0.817</td>
+<td style="text-align: right;">0.5365854</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1994</td>
+<td style="text-align: right;">0.736</td>
+<td style="text-align: right;">0.6857143</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1995</td>
+<td style="text-align: right;">0.685</td>
+<td style="text-align: right;">0.6944444</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1996</td>
+<td style="text-align: right;">0.782</td>
+<td style="text-align: right;">0.7560976</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1997</td>
+<td style="text-align: right;">0.798</td>
+<td style="text-align: right;">0.6326531</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1998</td>
+<td style="text-align: right;">0.861</td>
+<td style="text-align: right;">0.6976744</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1999</td>
+<td style="text-align: right;">0.849</td>
+<td style="text-align: right;">0.6774194</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2000</td>
+<td style="text-align: right;">0.589</td>
+<td style="text-align: right;">0.5277778</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2001</td>
+<td style="text-align: right;">0.371</td>
+<td style="text-align: right;">0.7142857</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2002</td>
+<td style="text-align: right;">0.260</td>
+<td style="text-align: right;">0.7894737</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2003</td>
+<td style="text-align: right;">0.222</td>
+<td style="text-align: right;">0.7380952</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2004</td>
+<td style="text-align: right;">0.110</td>
+<td style="text-align: right;">0.6571429</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2006</td>
+<td style="text-align: right;">0.458</td>
+<td style="text-align: right;">0.7179487</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2007</td>
+<td style="text-align: right;">0.411</td>
+<td style="text-align: right;">0.5744681</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2008</td>
+<td style="text-align: right;">0.576</td>
+<td style="text-align: right;">0.6000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2009</td>
+<td style="text-align: right;">0.516</td>
+<td style="text-align: right;">0.6086957</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2010</td>
+<td style="text-align: right;">0.577</td>
+<td style="text-align: right;">0.6585366</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2011</td>
+<td style="text-align: right;">0.296</td>
+<td style="text-align: right;">0.4358974</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2012</td>
+<td style="text-align: right;">0.240</td>
+<td style="text-align: right;">0.4888889</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2013</td>
+<td style="text-align: right;">0.068</td>
+<td style="text-align: right;">0.6444444</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2014</td>
+<td style="text-align: right;">-0.227</td>
+<td style="text-align: right;">0.6097561</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2015</td>
+<td style="text-align: right;">-0.269</td>
+<td style="text-align: right;">0.5909091</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2016</td>
+<td style="text-align: right;">-0.059</td>
+<td style="text-align: right;">0.5588235</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2017</td>
+<td style="text-align: right;">0.298</td>
+<td style="text-align: right;">0.5555556</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2018</td>
+<td style="text-align: right;">0.402</td>
+<td style="text-align: right;">0.6363636</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2019</td>
+<td style="text-align: right;">0.355</td>
+<td style="text-align: right;">0.5500000</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>let’s put this on a more easy to read graph:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>ideology_graph</span> <span class='op'>&lt;-</span> <span class='va'>chevron_data</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>mapping <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>median_slant</span>, y <span class='op'>=</span> <span class='va'>agency_prop_win</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_smooth.html'>geom_smooth</a></span><span class='op'>(</span>method <span class='op'>=</span> <span class='st'>"lm"</span>, se <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span></span>
+<span>    x <span class='op'>=</span> <span class='st'>"Ideological Slant of Median Supreme Court Justice"</span>,</span>
+<span>    y <span class='op'>=</span> <span class='st'>"Proportion of Cases Citing Chevron an Agency Won "</span>,</span>
+<span>    title <span class='op'>=</span> <span class='st'>"Ideological Slant of Supreme Court vs. Agency Win Rate in Chevron Cases"</span>,</span>
+<span>    caption <span class='op'>=</span> <span class='st'>"Negative Values Show Liberal Lean, Positive Values Show Conservative Lean"</span></span>
+<span>  <span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>ideology_graph</span></span></code></pre>
+</div>
+<p><img src="index_files/figure-html5/unnamed-chunk-8-1.png" width="624" /></p>
+</div>
+<p>let’s more clearly analyze the strength of the relationship between the ideological slant of the median justice on the Supreme Court and the prortion of cases citing Chevron that agencies win.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>party_analysis</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>agency_prop_win</span> <span class='op'>~</span> <span class='va'>median_slant</span>, data <span class='op'>=</span> <span class='va'>chevron_data</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>party_analysis</span></span></code></pre>
+</div>
+<pre><code>
+Call:
+lm(formula = agency_prop_win ~ median_slant, data = chevron_data)
+
+Coefficients:
+ (Intercept)  median_slant  
+     0.60022       0.09178  </code></pre>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://broom.tidymodels.org/'>broom</a></span><span class='op'>)</span></span>
+<span></span>
+<span><span class='fu'><a href='https://generics.r-lib.org/reference/glance.html'>glance</a></span><span class='op'>(</span><span class='va'>party_analysis</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>r.squared</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/kable.html'>kable</a></span><span class='op'>(</span>col.names <span class='op'>=</span> <span class='st'>"R Squared"</span><span class='op'>)</span></span></code></pre>
+</div>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: right;">R Squared</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0.1238123</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The r squared value of the linear relationship described above is 0.1238123. This suggest there is a weak linear relationship between the ideological slant of the median supreme court justice and the proportion of Chevron Cases the agency wins.</p>
+<p>Becuase the slope is positive, it suggests the relationship is positive, meaning that a more conservative median supreme court justice is associated with a higher agency win rate in Chevron cases.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
