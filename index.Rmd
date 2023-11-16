@@ -1,7 +1,7 @@
 ---
 title: "Gov 50 Final Project"
 author: "Sam Church"
-description: "My final project"
+description: "Debating Deference: The Politization of the Chevron Doctrine"
 output:
   distill::distill_article:
     self_contained: false
@@ -9,7 +9,7 @@ output:
 
 
 
-## MILESTONE 1: Project thoughts
+## MILESTONE 1: Project Thoughts
 
 I am interested in doing my final project on an issue related to the federal court system. For example, I'd be interested in exploring how Chevron Deference has been declining as the justification in recent court decisions.
 
