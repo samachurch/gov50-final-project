@@ -159,6 +159,7 @@ glance(party_analysis) |>
   knitr::kable(col.names = "R Squared")
 ```
 
+
 The r squared value of the linear relationship described above is 0.1238123. This suggest there is a weak linear relationship between the ideological slant of the median supreme court justice and the proportion of Chevron Cases the agency wins.
 
 Becuase the slope is positive, it suggests the relationship is positive, meaning that a more conservative median supreme court justice is associated with a higher agency win rate in Chevron cases.
