@@ -1,12 +1,21 @@
 ---
-title: "Gov 50 Final Project"
+title: "Debating Deference: The Politicization of the Chevron Doctrone"
 author: "Sam Church"
-description: "Debating Deference: The Politicization of the Chevron Doctrine"
+description: "Final Project for Gov 50 --- Fall 2023"
 output:
   distill::distill_article:
     self_contained: false
 ---
 
+## Introduction
+
+Chevron Deference, for a majority of Americans, is not a common topic of discussion. The result of evolving standards of statutory interpretation at the highest court in the land, it is understandable that Chevron Deference, a legal standard that results in increased flexibility regarding the authority of executive agencies, is not usually mentioned outside of the courtroom.
+
+Recently, however, it has become increasingly utilized by democrats as a way to circumvent legislative gridlock. Because Chevron Deference, in theory, should result in the court delegating agencies broader authority to make rules, the executive branch sees it as a way to achieve broad policy objectives such as climate change regulations, reform of the financial system, and even changing standards for higher education.
+
+Thus, it would be interesting to further analyze whether or not the court utilized Chevron deference more or less when it was largely populated by democrat-leaning or conservative-leaning justices. This is because, if democrats now are using it to circumvent a partisan legislature, it could be interesting to analyze whether or not other parties used the same tactic in the past. Understanding the influence political ideology plays on how much the Court chooses to utilize the Chevron doctrine is important now more than ever as conservatives are attempting to limit the doctrine. If conservatives typically utilize the doctrine in addition to liberals, then it will be clear that attacks on Chevron now are more ideologically motivated rather rooted in legal truth.
+
+Therefore, a question can be proposed: does the ideological slant of the Supreme Court influence the win rate of agencies in cases citing the Chevron Deference doctrine? 
 
 
 ## MILESTONE 1: Project Thoughts
@@ -15,7 +24,7 @@ I am interested in doing my final project on an issue related to the federal cou
 
 ## MILESTONE 2: Project Proposal
 
-Does the ideological slant of the Supreme Court influence the win rate of agencies in cases citing the Chevron Deference doctrine? In this report, I will attempt to determine whether a democratic or republican leaning supreme court applies and upholds deference more often. I hypothesize that agency win rate will remain relatively consistent regardless of the ideological slant of the Supreme Court. This is because the doctrine of deference is apolitical, and thus should be consistently applied regardless of the overall slant of the court.Thus, when examining data about whether or not the Supreme Court sides with an executive agency in a decision, I expect the agency win rate to remain relatively consistent. The explanatory variable of interest my project will focus on is the median justice by ideological slant. This is a good measure of the overall slant of the Supreme Court, because it indicates that there are 4 justices more conservative than them, and 4 justices more liberal than them, isolating an overall value for the ideological slant of the court. The outcome variable will be the win rate of agencies in cases that cite Chevron Deference throughout different terms. Thus, the database I will be utilizing is a list of Supreme Court cases from 1984 to 2019 where an agency attempts to interpret a law (statutory interpretation). In combination with this, I will be using a dataset that measures the ideological slant of the median Supreme Court justice for the same time period mentioned above. If there is a relationship between partisan slant of the Supreme Court and agency win rate in Chevron Cases my hypothesis will have been found to NOT have statistical support. If there is no relationship found, my hypothesis will have been statistically supported.
+In this report, I will attempt to determine whether a democratic or republican leaning supreme court applies and upholds deference more often. I hypothesize that agency win rate will remain relatively consistent regardless of the ideological slant of the Supreme Court. This is because the doctrine of deference is apolitical, and thus should be consistently applied regardless of the overall slant of the court.Thus, when examining data about whether or not the Supreme Court sides with an executive agency in a decision, I expect the agency win rate to remain relatively consistent. The explanatory variable of interest my project will focus on is the median justice by ideological slant. This is a good measure of the overall slant of the Supreme Court, because it indicates that there are 4 justices more conservative than them, and 4 justices more liberal than them, isolating an overall value for the ideological slant of the court. The outcome variable will be the win rate of agencies in cases that cite Chevron Deference throughout different terms. Thus, the database I will be utilizing is a list of Supreme Court cases from 1984 to 2019 where an agency attempts to interpret a law (statutory interpretation). In combination with this, I will be using a dataset that measures the ideological slant of the median Supreme Court justice for the same time period mentioned above. If there is a relationship between partisan slant of the Supreme Court and agency win rate in Chevron Cases my hypothesis will have been found to NOT have statistical support. If there is no relationship found, my hypothesis will have been statistically supported.
 
 The variable called favors_agency can be considered in determining win rate. It is coded as a 0 if the decision favors agency, 1 if it does not, and 2 if it was mixed. To minimize confounding factors, I will only consider a 0 as a win for an agency. 
 
