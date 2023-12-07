@@ -1,5 +1,5 @@
 ---
-title: "Debating Deference: The Politicization of the Chevron Doctrone"
+title: "Debating Deference: The Politicization of the Chevron Doctrine"
 author: "Sam Church"
 description: "Final Project for Gov 50 --- Fall 2023"
 output:
@@ -17,41 +17,29 @@ Thus, it would be interesting to further analyze whether or not the court utiliz
 
 Therefore, a question can be proposed: does the ideological slant of the Supreme Court influence the win rate of agencies in cases citing the Chevron Deference doctrine? 
 
+I hypothesize that agency win rate will remain relatively consistent regardless of the ideological slant of the Supreme Court. This is because the doctrine of deference is supposedly apolitical. The decision that created the doctrine was established based on precedence, and it should therefore be consistently applied regardless of the overall ideological slant of the court.
 
-## MILESTONE 1: Project Thoughts
+In other words, when examining data about whether or not the Supreme Court sides with an executive agency in a decision, I expect the agency win rate to remain relatively consistent. The explanatory variable of interest my project will focus on is the median justice by ideological slant. The outcome variable will be the win rate of agencies in cases that cite Chevron Deference throughout different terms. Thus, the database I will be utilizing is a list of Supreme Court cases from 1984 to 2019 where an agency attempts to interpret a law (statutory interpretation). In combination with this, I will be using a dataset that measures the ideological slant of the median Supreme Court justice for the same time period mentioned above. 
 
-I am interested in doing my final project on an issue related to the federal court system. For example, I'd be interested in exploring how Chevron Deference has been declining as the justification in recent court decisions.
+If there is a relationship between partisan slant of the Supreme Court and agency win rate in Chevron Cases my hypothesis will have been found to NOT have statistical support. If there is no relationship found, my hypothesis will have been statistically supported.
 
-## MILESTONE 2: Project Proposal
+## Data
 
-In this report, I will attempt to determine whether a democratic or republican leaning supreme court applies and upholds deference more often. I hypothesize that agency win rate will remain relatively consistent regardless of the ideological slant of the Supreme Court. This is because the doctrine of deference is apolitical, and thus should be consistently applied regardless of the overall slant of the court.Thus, when examining data about whether or not the Supreme Court sides with an executive agency in a decision, I expect the agency win rate to remain relatively consistent. The explanatory variable of interest my project will focus on is the median justice by ideological slant. This is a good measure of the overall slant of the Supreme Court, because it indicates that there are 4 justices more conservative than them, and 4 justices more liberal than them, isolating an overall value for the ideological slant of the court. The outcome variable will be the win rate of agencies in cases that cite Chevron Deference throughout different terms. Thus, the database I will be utilizing is a list of Supreme Court cases from 1984 to 2019 where an agency attempts to interpret a law (statutory interpretation). In combination with this, I will be using a dataset that measures the ideological slant of the median Supreme Court justice for the same time period mentioned above. If there is a relationship between partisan slant of the Supreme Court and agency win rate in Chevron Cases my hypothesis will have been found to NOT have statistical support. If there is no relationship found, my hypothesis will have been statistically supported.
+There are two interesting variables that will be analyzed: the median ideological slant of the Supreme Court for a given term and the percent of cases citing Chevon Deference an agency won in a given term. The explanatory (independent) variable will be the median ideological slant of the Supreme Court. This is a good measure of the overall ideological slant of the Supreme Court, because it indicates that there are 4 justices more conservative than them, and 4 justices more liberal than them, isolating an overall value for the ideological slant of the court. This data is the result of a measurement system known as "Martin-Quinn Scores." It uses empirically successful methods to compare decisions a justice makes and assign them an overall ideological slant, with lower numbers representing a more liberal justice. This data was collected through a survey of decisions certain justices made, and is described more in-depth in the paper where the scores were first introduced, here: https://mqscores.lsa.umich.edu/media/pa02.pdf
 
-The variable called favors_agency can be considered in determining win rate. It is coded as a 0 if the decision favors agency, 1 if it does not, and 2 if it was mixed. To minimize confounding factors, I will only consider a 0 as a win for an agency. 
-
-In addition, to avoid confounding variables regarding other aspects of cases, I will only investigate cases where the court determined Chevron Deference (one of the deference doctrines) should apply. Thus, the only cases I will evaluate are ones where Chevron Step 0 (does the Chevron framework apply) is coded as a 1 to indicate yes.
-
-Link to dataset about Chevron: https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/ZNCKL5
-
-Link to dataset about ideology of Supreme Court: https://mqscores.lsa.umich.edu/measures.php
+The dependent variable is the percent of cases citing Chevron that are ruled in favor of the agency. This can be measured by taking every case that cites Chevron, determining if the decision ruled in favor of the agency, and dividing that by the total number of cases citing Chevron in a given term. The data for this variable is a survey of cases relating to Chevron deferences, located here: https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/ZNCKL5. The variable called favors_agency can be considered in determining win rate. It is coded as a 0 if the decision favors agency, 1 if it does not, and 2 if it was mixed. To minimize confounding factors, I will only consider a 0 as a win for an agency. In addition, to avoid confounding variables regarding other aspects of cases, I will only investigate cases where the court determined Chevron Deference (one of the deference doctrines) should apply. Thus, the only cases I will evaluate are ones where Chevron Step 0 (does the Chevron framework apply) is coded as a 1 to indicate yes.
 
 
-## MILESTONE 3: Data Visulatization
+This is a cross-sectional research project. The partisan slant of the Supreme Court and the agency win rate in cases citing Chevron Deference will be analyzed at specific points in time. Specifically, they'll be analyzed during specific Supreme Court terms.
 
-I am going to make a scatter plot that shoes the win rate of different agencies in cases where Chevron is cited compared to the ideological slant of the court in order to determine which party has a stronger correlation with agency wins.
 
 ```{r}
 library(ggplot2)
 library(tidyverse)
-```
 
-```{r}
 deference_data <- read_csv("data/ProjectDeferenceData.csv")
-
 court_data <- read_csv("data/court.csv")
-##RESET DATA
-```
 
-```{r}
 deference_data <- deference_data |>
   mutate(
     case_winner = if_else(Decision == 0, "gov_agency", "not_agency"),
@@ -67,62 +55,10 @@ court_data <- court_data |>
   ) |>
   select(term, med)
 
-deference_data
-
-##CLEANUP DATA
-```
-
-let's combine deference data and court data:
-```{r}
-deference_data <- deference_data |>
+final_data <- deference_data |>
   left_join(court_data)
 
-deference_data
-```
-
-
-This will be a graph that shows the win rate of agencies in cases that cited Chevron overtime compared to the court's ideological slant over time. Let's create that variable.
-
-```{r}
-case_data <- deference_data |>
-  filter(ChevronCited == 1) |>
-  group_by(term) |>
-  mutate(
-    prop_agency_win = (sum(case_winner == "gov_agency")) / n()
-  ) |>
-  drop_na()
-##calculates win rate
-  
-case_data
-```
-
-
-Now let's create the chart:
-```{r}
-case_data |>
-  ggplot(mapping = aes(x = term)) +
-  geom_line(aes(y = prop_agency_win, color = "Win Rate of Agencies in Chevron Cases"), se = FALSE) +
-  geom_line(aes(y = case_data$med, color = "Ideological Slant of SCOTUS"), se = FALSE) +
-  scale_colour_manual(name ="Legend", values = c("Win Rate of Agencies in Chevron Cases" = "steelblue", "Ideological Slant of SCOTUS" = "indianred")) +
-  scale_x_continuous(breaks=seq(1983,2019,by=5)) +
-labs(
-  title = "Ideological Slant of SCOTUS and Agency Win Rate in Cases Citing Chevron Over Time",
-  x = "Year",
-  y = ""
-)
-
-```
-
-
-Higher numbers on the y-axis indicate a more conservative supreme court and a higher agency win-rate in Chevron cases.
-
-## MILESTONE 4: Analysis
-
-Let's create a table that demonstrates the relationship between the median slant of the Supreme Court and the percentage of Chevron cases an agency wins.
-
-
-```{r}
-chevron_data <- deference_data |>
+chevron_data <- final_data |>
   group_by(term) |>
   summarize(
     median_slant = mean(med),
@@ -134,9 +70,26 @@ chevron_data <- chevron_data |>
 
 chevron_data |>
   knitr::kable(col.names = c("Term", "Ideological Slant of Median Justice", "Proportion of Agency Wins in Chevron Cases"))
+
 ```
 
-let's put this on a more easy to read graph:
+```{r}
+chevron_data |>
+ggplot(mapping = aes(x = term)) +
+  geom_line(aes(y = agency_prop_win, color = "Win Rate of Agencies in Chevron Cases"), se = FALSE) +
+  geom_line(aes(y = median_slant, color = "Ideological Slant of SCOTUS"), se = FALSE) +
+  scale_colour_manual(name ="Legend", values = c("Win Rate of Agencies in Chevron Cases" = "steelblue", "Ideological Slant of SCOTUS" = "indianred")) +
+  scale_x_continuous(breaks=seq(1983,2019,by=5)) +
+labs(
+  title = "Ideological Slant of SCOTUS and Agency Win Rate in Cases Citing Chevron Over Time",
+  x = "Year",
+  y = "",
+  subtitle = "Lower Position on Y-Axis Indicates a Lower Agency Win Rate and More Liberal Court",
+)
+  
+```
+
+## Results
 
 ```{r}
 ideology_graph <- chevron_data |>
@@ -153,13 +106,14 @@ ideology_graph <- chevron_data |>
 ideology_graph
 ```
 
-let's more clearly analyze the strength of the relationship between the ideological slant of the median justice on the Supreme Court and the prortion of cases citing Chevron that agencies win.
 
 ```{r}
 party_analysis <- lm(agency_prop_win ~ median_slant, data = chevron_data)
 
 party_analysis
 ```
+
+
 ```{r}
 library(broom)
 
@@ -169,6 +123,6 @@ glance(party_analysis) |>
 ```
 
 
-The r squared value of the linear relationship described above is 0.1238123. This suggest there is a weak linear relationship between the ideological slant of the median supreme court justice and the proportion of Chevron Cases the agency wins.
 
-Becuase the slope is positive, it suggests the relationship is positive, meaning that a more conservative median supreme court justice is associated with a higher agency win rate in Chevron cases.
+
+
