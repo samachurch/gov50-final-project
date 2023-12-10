@@ -118,11 +118,20 @@ party_analysis
 library(broom)
 
 glance(party_analysis) |>
-  select(r.squared) |>
-  knitr::kable(col.names = "R Squared")
+  select(r.squared, p.value) |>
+  knitr::kable(col.names = c("R Squared", "P Value"))
 ```
 
 
 
 
+
+After plotting a graph of the median ideological slant of the Supreme Court on the x-axis and the percentage of cases citing Chevron that an executive agency won for each term, there is a slight positive relationship between ideological slant and percentage of cases citing Chevron that an executive agency won for each term. This is revealed by the slope of 0.09178, which demonstrates that as the ideological slant increases by 1 unit (more conservative), the agency win rate in cases citing Chevron, on average, increases by 0.09178. In plain terms, a more conservative Supreme Court has been more historically correlated with a higher agency win rates in cases that cite Chevron Deference.
+
+However, the r squared value is 0.1238123. An r-squared value closer to one demonstrates a stronger level of correlation. Thus, because the the r squared value is relatively low (close to zero), it shows there is a relatively weak relationship between ideological slant of the supreme court and average agency win rate for a given term. Because the correlation is fairly weak, it is unlikely this relationship should be interpreted causally. This is because, on average, the model prescribed above is a weak predictor of the dependent variable.
+
+
+But, it should be noted that the p-value for the relationship above is 0.0353315. At a significance level of 0.05, this satisfies the condition for a statistically significant relationship. With a low r squared and a statistically significant p-value, we can interpret that the above model does not explain the relationship in the data paticularly well, but it is signficant in the sense that it is better than having no model at all.
+
+## Conclusion
 
