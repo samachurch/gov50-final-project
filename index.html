@@ -1845,22 +1845,28 @@ Coefficients:
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://broom.tidymodels.org/'>broom</a></span><span class='op'>)</span></span>
 <span></span>
 <span><span class='fu'><a href='https://generics.r-lib.org/reference/glance.html'>glance</a></span><span class='op'>(</span><span class='va'>party_analysis</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
-<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>r.squared</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
-<span>  <span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/kable.html'>kable</a></span><span class='op'>(</span>col.names <span class='op'>=</span> <span class='st'>"R Squared"</span><span class='op'>)</span></span></code></pre>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>r.squared</span>, <span class='va'>p.value</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/kable.html'>kable</a></span><span class='op'>(</span>col.names <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"R Squared"</span>, <span class='st'>"P Value"</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
 </div>
 <table>
 <thead>
 <tr class="header">
 <th style="text-align: right;">R Squared</th>
+<th style="text-align: right;">P Value</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td style="text-align: right;">0.1238123</td>
+<td style="text-align: right;">0.0353315</td>
 </tr>
 </tbody>
 </table>
 </div>
+<p>After plotting a graph of the median ideological slant of the Supreme Court on the x-axis and the percentage of cases citing Chevron that an executive agency won for each term, there is a slight positive relationship between ideological slant and percentage of cases citing Chevron that an executive agency won for each term. This is revealed by the slope of 0.09178, which demonstrates that as the ideological slant increases by 1 unit (more conservative), the agency win rate in cases citing Chevron, on average, increases by 0.09178. In plain terms, a more conservative Supreme Court has been more historically correlated with a higher agency win rates in cases that cite Chevron Deference.</p>
+<p>However, the r squared value is 0.1238123. An r-squared value closer to one demonstrates a stronger level of correlation. Thus, because the the r squared value is relatively low (close to zero), it shows there is a relatively weak relationship between ideological slant of the supreme court and average agency win rate for a given term. Because the correlation is fairly weak, it is unlikely this relationship should be interpreted causally. This is because, on average, the model prescribed above is a weak predictor of the dependent variable.</p>
+<p>But, it should be noted that the p-value for the relationship above is 0.0353315. At a significance level of 0.05, this satisfies the condition for a statistically significant relationship. With a low r squared and a statistically significant p-value, we can interpret that the above model does not explain the relationship in the data paticularly well, but it is signficant in the sense that it is better than having no model at all.</p>
+<h2 id="conclusion">Conclusion</h2>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
