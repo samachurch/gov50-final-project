@@ -106,7 +106,6 @@ ideology_graph <- chevron_data |>
 ideology_graph
 ```
 
-
 ```{r}
 party_analysis <- lm(agency_prop_win ~ median_slant, data = chevron_data)
 
@@ -115,7 +114,17 @@ party_analysis
 
 
 ```{r}
+modelsummary::modelsummary(party_analysis,
+                           statistic = c("s.e. = {std.error}",
+                                         "p = {p.value}"),
+                           gof_map = c("nobs", "r.squared", "adj.r.squared"))
+
+```
+
+
+```{r}
 library(broom)
+
 
 glance(party_analysis) |>
   select(r.squared, p.value) |>
